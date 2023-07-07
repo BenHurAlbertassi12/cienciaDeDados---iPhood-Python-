@@ -1,9 +1,10 @@
-function App() {
-  return (
-    <div>
-      <h3>BenHUr</h3>
-    </div>
-  );
-}
+import { Component } from "react";
 
-export default App;
+export default class App extends Component{
+  render() {
+    return (
+      <h1>Ola</h1>
+
+    )
+  }
+}
