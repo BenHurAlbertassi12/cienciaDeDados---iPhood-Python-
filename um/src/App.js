@@ -28,9 +28,9 @@ export default class App extends Component {
     return (
       <div>
         <h1 onClick={this.handlePClick}>
-          {name}
+          {name} + {counter}
         </h1>
-        <h2 onClick={this.handleAClick}>{counter}</h2>
+        <button onClick={this.handleAClick}> adicione + 1</button>
       </div>
     );
   }
