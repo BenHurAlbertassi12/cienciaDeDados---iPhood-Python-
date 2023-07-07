@@ -12,8 +12,7 @@ export default class App extends Component{
   }
 
   handlePClick() {
-    const { name } = this.state
-    console.log(`<h1> Clicado</h1> ${name}`);
+    this.setState({name: 'Albertassi'})
   }
   render() {
 
