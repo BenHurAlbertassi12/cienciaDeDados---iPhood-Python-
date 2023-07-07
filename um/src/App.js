@@ -5,10 +5,17 @@ export default class App extends Component{
     super(props)
 
     this.state = {
-      name: 'BenHur Albertassi'
+      name: 'BenHur Albertassi',
+      counter: 0
     };
 
     this.handlePClick = this.handlePClick.bind(this)
+  }
+  handleAClick = (event) => { 
+    event.preventDefault()
+    const { counter } = this.state;
+      this.setState({ counter: counter + 1 })
+    
   }
 
   handlePClick() {
@@ -16,13 +23,16 @@ export default class App extends Component{
   }
   render() {
 
-    const { name } = this.state
+    const { name, counter } = this.state
 
 
     return (
+      <div>
       <h1 onClick={()=>this.handlePClick()}>
         { name }
-    </h1>
+      </h1>
+        <h2 onClick={() => this.handleAClick()}>{ counter }</h2>
+      </div>
   
     )
   }
