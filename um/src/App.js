@@ -10,10 +10,16 @@ export default class App extends Component {
   }
   
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then(posts => this.setState({posts}))
-    
+    this.loadPosts()
+  }
+  
+  loadPosts = async () => {
+    const postsResponse = fetch('https://jsonplaceholder.typicode.com/posts')
+
+    const [posts] = await Promise.all([postsResponse])
+    const postsJson = await posts.json()
+
+    this.setState({posts: postsJson})
   }
 
   componentDidUpdate() {
@@ -28,9 +34,9 @@ export default class App extends Component {
     const { posts } = this.state;
 
     return (
-      <div>
+      <div className="posts">
         {posts.map(posts => (
-          <div key={posts.id}>
+          <div key={posts.id} className="post-content">
             <h1>{posts.title}</h1>
             <h3>{posts.body}</h3>
           </div>
