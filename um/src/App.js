@@ -5,32 +5,37 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      name: 'BenHur Albertassi',
-      counter: 0
+      post: [
+        {
+          id: 1,
+          title: 'titulo 1',
+          body: 'body 1'
+        },
+        {
+          id: 2,
+          title: 'titulo 2',
+          body: 'body 2'
+        },
+        {
+          id: 3,
+          title: 'titulo 3',
+          body: 'body 3'
+        },
+      ],
     };
-
-    this.handlePClick = this.handlePClick.bind(this);
-  }
-
-  handleAClick = (event) => {
-    event.preventDefault();
-    const { counter } = this.state;
-    this.setState({ counter: counter + 1 });
-  }
-
-  handlePClick() {
-    this.setState({ name: 'Albertassi' });
   }
 
   render() {
-    const { name, counter } = this.state;
+    const { post } = this.state;
 
     return (
       <div>
-        <h1 onClick={this.handlePClick}>
-          {name} + {counter}
-        </h1>
-        <button onClick={this.handleAClick}> adicione + 1</button>
+        {post.map(post => (
+          <div key={post.id}>
+            <h1>{ post.title }</h1>
+            <h3>{ post.body }</h3>
+          </div>
+        ))}
       </div>
     );
   }
