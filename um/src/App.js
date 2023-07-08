@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import './App.css'
+import './App.css';
+import {PostCard} from './components/PostCard/PostCard'
+
 
 export default class App extends Component {
   constructor(props) {
@@ -11,31 +13,31 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.loadPosts()
+    this.loadPosts();
   }
 
   loadPosts = async () => {
-    const postsResponse = fetch('https://jsonplaceholder.typicode.com/posts')
-    const photosResponse = fetch('https://jsonplaceholder.typicode.com/photos')
+    const postsResponse = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const photosResponse = await fetch('https://jsonplaceholder.typicode.com/photos');
 
-    const [posts, photos] = await Promise.all([postsResponse, photosResponse])
-    const postsJson = await posts.json()
-    const photosJson = await photos.json()
+    // const [posts, photos] = await Promise.all([postsResponse, photosResponse])
 
-    const postsAndPhotos = postsJson.map((posts, index) => {
-      return {...posts, cover: photosJson[index].url}
-    })
+    const postsJson = await postsResponse.json();
+    const photosJson = await photosResponse.json();
 
-    this.setState({ posts: postsAndPhotos })
-    // this.setState({ posts: photosJson })
+    const postsAndPhotos = postsJson.map((post, index) => {
+      return { ...post, cover: photosJson[index].url };
+    });
+
+    this.setState({ posts: postsAndPhotos });
   }
 
   componentDidUpdate() {
-
+    // Código de atualização (caso necessário)
   }
 
   componentWillUnmount() {
-
+    // Código de limpeza (caso necessário)
   }
 
   render() {
@@ -44,14 +46,14 @@ export default class App extends Component {
     return (
       <section className="container">
         <div className="posts">
-          {posts.map(posts => (
-            <div className="post">
-              <img src={posts.cover} alt={posts.title}></img>
-              <div key={posts.id} className="post-content">
-                <h1>{posts.title}</h1>
-                <h3>{posts.body}</h3>
-              </div>
-            </div>
+          {posts.map(post => (
+            <PostCard
+              key={post.id}
+              title={post.title}
+              body={post.body}
+              id={post.id}
+              cover={post.cover}
+            />  
           ))}
         </div>
       </section>
