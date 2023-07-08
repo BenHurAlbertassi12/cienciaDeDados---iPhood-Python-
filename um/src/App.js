@@ -5,26 +5,15 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      post: [{
-        id: 1,
-        title: 'titulo 1',
-        body: 'body 1'
-      },
-        {
-          id: 2,
-          title: 'titulo 2',
-          body: 'body 2'
-        },
-        {
-          id: 3,
-          title: 'titulo 3',
-          body: 'body 3'
-        }]
+      posts: []
     };
   }
   
   componentDidMount() {
-
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => response.json())
+      .then(posts => this.setState({posts}))
+    
   }
 
   componentDidUpdate() {
@@ -36,14 +25,14 @@ export default class App extends Component {
   }
 
   render() {
-    const { post } = this.state;
+    const { posts } = this.state;
 
     return (
       <div>
-        {post.map(post => (
-          <div key={post.id}>
-            <h1>{post.title}</h1>
-            <h3>{post.body}</h3>
+        {posts.map(posts => (
+          <div key={posts.id}>
+            <h1>{posts.title}</h1>
+            <h3>{posts.body}</h3>
           </div>
         ))}
       </div>
