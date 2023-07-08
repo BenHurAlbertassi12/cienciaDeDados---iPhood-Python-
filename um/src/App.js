@@ -23,9 +23,28 @@ export default class App extends Component {
         }]
     };
   }
-
+  timeoutUpdate = null;
+  
   componentDidMount() {
+    this.handleTimeOut()
+  }
 
+  componentDidUpdate() {
+    this.handleTimeOut()
+  }
+  
+  componentWillUnmount() {
+    clearTimeout(this.timeoutUpdate)
+    
+  }
+
+  handleTimeOut = () => {
+    const { post, counter } = this.state;
+    post[0].title = 'titulo mudado'
+
+    this.timeoutUpdate = setTimeout(() => {
+      this.setState({ post, counter: counter + 1 })
+    }, 3000)
   }
 
   render() {
