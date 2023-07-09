@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-import './App.css';
+import './Home.css';
 
-import { loadPosts } from "./utils/load-posts";
-import { Posts } from "./components/Posts/Posts";
+import { loadPosts } from "../../utils/load-posts";
+import { Posts } from "../../components/Posts/Posts";
 
-export default class App extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
 
