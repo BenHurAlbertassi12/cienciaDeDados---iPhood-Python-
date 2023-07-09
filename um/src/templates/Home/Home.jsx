@@ -10,7 +10,10 @@ export default class Home extends Component {
     super(props);
 
     this.state = {
-      posts: []
+      posts: [],
+      allPosts: [],
+      page: 0,
+      postPerPages: 2
     };
   }
 
@@ -19,8 +22,17 @@ export default class Home extends Component {
   }
 
   loadPosts = async () => {
+    const { page, postPerPages } = this.state
     const postsAndPhotos = await loadPosts();
-    this.setState({ posts: postsAndPhotos });
+
+    this.setState({
+      posts: postsAndPhotos.slice(page, postPerPages),
+      allPosts: postsAndPhotos
+    });
+  }
+
+  loadMorePosts = () => {
+    console.log('load mor posts chamado');
   }
 
   componentDidUpdate() {
@@ -36,7 +48,11 @@ export default class Home extends Component {
 
     return (
       <section className="container">
-        <Posts posts={posts}/>
+        <Posts posts={posts} />
+        <button
+          onClick={this.loadMorePosts}
+        >
+          Load More Posts</button>
         </section>
     );
   }
