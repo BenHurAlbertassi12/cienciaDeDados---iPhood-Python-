@@ -50,15 +50,19 @@ export default class Home extends Component {
   }
 
   render() {
-    const { posts } = this.state;
+    const { posts, page, postPerPages, allPosts } = this.state;
+    const noMorePosts = page + postPerPages >= allPosts.length
 
     return (
-      <section className="container">
+      <section className='container'>
         <Posts posts={posts} />
-        <ButtonLoadMore
-          text='LoadMorePosts'
-          onClick={this.loadMorePosts}
-        />
+        <div className='buttonContainer'>
+          <ButtonLoadMore
+            text='LoadMorePosts'
+            onClick={this.loadMorePosts}
+            disabled={noMorePosts}
+          />
+        </div>
       </section>
     );
   }

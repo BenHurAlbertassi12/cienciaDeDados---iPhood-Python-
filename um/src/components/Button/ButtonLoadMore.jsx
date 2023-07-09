@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 
+import './ButtonLoadMore.css';
+
 export class ButtonLoadMore extends Component {
   render() {
-    const { text, onClick } = this.props;
+    const { text, onClick, disabled } = this.props;
 
-    return <button onClick={onClick}>{text}</button>;
+      return <button
+          className='button'
+          disabled={disabled}
+          onClick={onClick}>{text}
+      </button>;
   }
 }
 

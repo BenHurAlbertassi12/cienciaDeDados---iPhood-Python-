@@ -31,3 +31,9 @@
 .post-content{
 padding: 30px;
 }
+
+.buttonContainer{
+    min-height: 60px;
+    display: flex;
+    align-items: flex-end;
+}
