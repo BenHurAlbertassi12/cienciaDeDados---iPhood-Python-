@@ -33,7 +33,12 @@ export default class Home extends Component {
   }
 
   loadMorePosts = () => {
-    console.log('load mor posts chamado');
+    const { page, postPerPages, allPosts, posts } = this.state  
+    const nextPage = page + postPerPages;
+    const nextPosts = allPosts.slice(nextPage, nextPage + postPerPages);
+    posts.push(...nextPosts)
+
+    this.setState({ posts, pages: nextPage})
   }
 
   componentDidUpdate() {
