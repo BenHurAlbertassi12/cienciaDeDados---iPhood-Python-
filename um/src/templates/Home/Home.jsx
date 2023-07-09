@@ -4,6 +4,7 @@ import './Home.css';
 
 import { loadPosts } from "../../utils/load-posts";
 import { Posts } from "../../components/Posts/Posts";
+import ButtonLoadMore from "../../components/Button/ButtonLoadMore";
 
 export default class Home extends Component {
   constructor(props) {
@@ -49,11 +50,11 @@ export default class Home extends Component {
     return (
       <section className="container">
         <Posts posts={posts} />
-        <button
+        <ButtonLoadMore
+          text='LoadMorePosts'
           onClick={this.loadMorePosts}
-        >
-          Load More Posts</button>
-        </section>
+        />
+      </section>
     );
   }
 }
