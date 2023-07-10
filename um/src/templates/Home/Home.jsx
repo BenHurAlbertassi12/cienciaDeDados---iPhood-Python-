@@ -5,6 +5,7 @@ import './Home.css';
 import { loadPosts } from '../../utils/load-posts';
 import { Posts } from '../../components/Posts/Posts';
 import ButtonLoadMore from '../../components/Button/ButtonLoadMore';
+import { InputSearch } from '../../components/InputSearch/InputSearch';
 
 export default class Home extends Component {
   constructor(props) {
@@ -65,18 +66,17 @@ export default class Home extends Component {
 
     return (
       <section className='container'>
-        {!!searchValue && <h1>Search Value: {searchValue}</h1>}
+        <div className='search-container'>
+          {!!searchValue && <h1>Search Value: {searchValue}</h1>}
 
-        <input onChange={this.handleChange} type='search' value={searchValue} />
-        <br></br>
-        <br></br>
-        <br></br>
-        {filterPost.length > 0 && (
-          <Posts posts={filterPost} />
-        )}
-        {filterPost.length === 0 && (
-          <p>Peço desculpas, nada foi encontrado</p>
-        )}
+          <InputSearch
+            searchValue={searchValue}
+            handleChange={this.handleChange}
+          />
+        </div>
+
+        {filterPost.length > 0 && <Posts posts={filterPost} />}
+        {filterPost.length === 0 && <p>Peço desculpas, nada foi encontrado</p>}
         <div className='buttonContainer'>
           {!searchValue && (
             <ButtonLoadMore
