@@ -71,7 +71,12 @@ export default class Home extends Component {
         <br></br>
         <br></br>
         <br></br>
-        <Posts posts={filterPost} />
+        {filterPost.length > 0 && (
+          <Posts posts={filterPost} />
+        )}
+        {filterPost.length === 0 && (
+          <p>Peço desculpas, nada foi encontrado</p>
+        )}
         <div className='buttonContainer'>
           {!searchValue && (
             <ButtonLoadMore
