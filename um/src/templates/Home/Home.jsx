@@ -15,7 +15,7 @@ export default class Home extends Component {
       posts: [],
       allPosts: [],
       page: 0,
-      postPerPages: 2,
+      postsPerPage: 2,
       searchValue: '',
     };
   }
@@ -25,22 +25,22 @@ export default class Home extends Component {
   }
 
   loadPosts = async () => {
-    const { page, postPerPages } = this.state;
+    const { page, postsPerPage } = this.state;
     const postsAndPhotos = await loadPosts();
 
     this.setState({
-      posts: postsAndPhotos.slice(page, postPerPages),
+      posts: postsAndPhotos.slice(page, postsPerPage),
       allPosts: postsAndPhotos,
     });
   };
 
   loadMorePosts = () => {
-    const { page, postPerPages, allPosts, posts } = this.state;
-    const nextPage = page + postPerPages;
-    const nextPosts = allPosts.slice(nextPage, nextPage + postPerPages);
+    const { page, postsPerPage, allPosts, posts } = this.state;
+    const nextPage = page + postsPerPage;
+    const nextPosts = allPosts.slice(nextPage, nextPage + postsPerPage);
     posts.push(...nextPosts);
 
-    this.setState({ posts, pages: nextPage });
+    this.setState({ posts, page: nextPage });
   };
 
   handleChange = (event) => {
@@ -48,21 +48,15 @@ export default class Home extends Component {
     this.setState({ searchValue: value });
   };
 
-  componentDidUpdate() {
-    // Código de atualização (caso necessário)
-  }
-
-  componentWillUnmount() {
-    // Código de limpeza (caso necessário)
-  }
-
   render() {
-    const { posts, page, postPerPages, allPosts, searchValue } = this.state;
-    const noMorePosts = page + postPerPages >= allPosts.length;
+    const { posts, page, postsPerPage, allPosts, searchValue } = this.state;
+    const noMorePosts = page + postsPerPage >= allPosts.length;
 
-    const filterPost = !!searchValue ? allPosts.filter(post => {
-      return post.title.toLowerCase().includes(searchValue.toLowerCase())
-      }) : posts
+    const filteredPosts = !!searchValue
+      ? allPosts.filter((post) => {
+          return post.title.toLowerCase().includes(searchValue.toLowerCase());
+        })
+      : posts;
 
     return (
       <section className='container'>
@@ -75,8 +69,12 @@ export default class Home extends Component {
           />
         </div>
 
-        {filterPost.length > 0 && <Posts posts={filterPost} />}
-        {filterPost.length === 0 && <p>Peço desculpas, nada foi encontrado</p>}
+        {filteredPosts.length > 0 ? (
+          <Posts posts={filteredPosts} />
+        ) : (
+          <p>Peço desculpas, nada foi encontrado</p>
+        )}
+
         <div className='buttonContainer'>
           {!searchValue && (
             <ButtonLoadMore
