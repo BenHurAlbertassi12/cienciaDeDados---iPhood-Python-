@@ -14,7 +14,8 @@ export default class Home extends Component {
       posts: [],
       allPosts: [],
       page: 0,
-      postPerPages: 2
+      postPerPages: 2,
+      searchValue: ''
     };
   }
 
@@ -41,6 +42,12 @@ export default class Home extends Component {
     this.setState({ posts, pages: nextPage})
   }
 
+  handleChange = (event) => {
+    const { value } = event.target;
+    this.setState({ searchValue: value });
+    
+  }
+
   componentDidUpdate() {
     // Código de atualização (caso necessário)
   }
@@ -50,11 +57,15 @@ export default class Home extends Component {
   }
 
   render() {
-    const { posts, page, postPerPages, allPosts } = this.state;
+    const { posts, page, postPerPages, allPosts, searchValue } = this.state;
     const noMorePosts = page + postPerPages >= allPosts.length
 
     return (
       <section className='container'>
+        <input onChange={this.handleChange} type='search' value={searchValue} />
+        <br></br>
+        <br></br>
+        <br></br>
         <Posts posts={posts} />
         <div className='buttonContainer'>
           <ButtonLoadMore
