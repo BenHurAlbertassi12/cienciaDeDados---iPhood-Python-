@@ -32,7 +32,7 @@ Se você quiser contribuir para este repositório, fique à vontade para enviar 
 
 Se você tiver alguma dúvida ou quiser entrar em contato comigo, sinta-se à vontade para me enviar uma mensagem via email ou através das minhas redes sociais.
 
-Email: [seu-email@example.com](mailto:dev.benhur@gmail.com)
-LinkedIn: [Seu Nome](https://www.linkedin.com/in/benhuralbertassi)
+Email: [gmail](mailto:dev.benhur@gmail.com)
+LinkedIn: [BenHur Albertassi](https://www.linkedin.com/in/benhuralbertassi)
 
 Agradeço por visitar este repositório e espero que os conteúdos aqui disponíveis sejam úteis para o seu aprendizado.
