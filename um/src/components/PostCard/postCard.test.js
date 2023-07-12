@@ -5,7 +5,7 @@ import { mock } from "../../utils/mock"
 const mocks = mock
 
 describe('<postCard />', () => {
-    it('shoul render PostCard currectly', () => {
+    it('shoul render PostCard correctly', () => {
         render(<PostCard {...mocks} />)
 
         expect(screen.getByRole('img', { name: 'title 1' }))
@@ -13,5 +13,10 @@ describe('<postCard />', () => {
         expect(screen.getByRole('heading', { name: 'title 1' }))
             .toBeInTheDocument()
         expect(screen.getByText('body 1',)).toBeInTheDocument()
+    })
+    it('should match snapshot', () => {
+        const { container } = render(<PostCard {...mocks} />);
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(container.firstChild).toMatchSnapshot();
     })
 })
