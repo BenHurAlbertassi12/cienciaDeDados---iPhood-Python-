@@ -38,36 +38,25 @@ export const Home = () => {
     setSearchValue(value);
   };
 
-  const filteredPosts = !!searchValue
+  const filteredPosts = searchValue
     ? allPosts.filter((post) => {
         return post.title.toLowerCase().includes(searchValue.toLowerCase());
       })
     : posts;
 
   return (
-    <section className='container'>
-      <div className='search-container'>
+    <section className="container">
+      <div className="search-container">
         {!!searchValue && <h1>Search Value: {searchValue}</h1>}
 
         <InputSearch searchValue={searchValue} handleChange={handleChange} />
       </div>
 
-      {filteredPosts.length > 0 ? (
-        <Posts posts={filteredPosts} />
-      ) : (
-        <p>Peço desculpas, nada foi encontrado</p>
-      )}
+      {filteredPosts.length > 0 ? <Posts posts={filteredPosts} /> : <p>Peço desculpas, nada foi encontrado</p>}
 
-      <div className='buttonContainer'>
-        {!searchValue && (
-          <ButtonLoadMore
-            text='LoadMorePosts'
-            onClick={loadMorePosts}
-            disabled={noMorePosts}
-          />
-        )}
+      <div className="buttonContainer">
+        {!searchValue && <ButtonLoadMore text="LoadMorePosts" onClick={loadMorePosts} disabled={noMorePosts} />}
       </div>
     </section>
   );
 };
-
