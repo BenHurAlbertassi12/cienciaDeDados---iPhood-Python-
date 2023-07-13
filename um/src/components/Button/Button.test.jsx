@@ -4,7 +4,8 @@ import userEvent from '@testing-library/user-event';
 
 describe('<buttonLoadMore />', () => {
   it('Should render the button with the text "LoadMorePosts"', () => {
-    render(<ButtonLoadMore text="LoadMorePosts" />);
+    const fn = jest.fn();
+    render(<ButtonLoadMore text="LoadMorePosts" onClick={fn} />);
 
     const button = screen.getByRole('button', { name: /LoadMorePosts/i });
     expect(button).toBeInTheDocument();
@@ -20,14 +21,16 @@ describe('<buttonLoadMore />', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
   it('Should be disabled when disabled is true', () => {
-    render(<ButtonLoadMore text="LoadMorePosts" disabled={true} />);
+    const fn = jest.fn();
+    render(<ButtonLoadMore text="LoadMorePosts" disabled={true} onClick={fn} />);
 
     const button = screen.getByRole('button', { name: /LoadMorePosts/i });
 
     expect(button).toBeDisabled();
   });
   it('Should be disabled when disabled is false', () => {
-    render(<ButtonLoadMore text="LoadMorePosts" disabled={false} />);
+    const fn = jest.fn();
+    render(<ButtonLoadMore text="LoadMorePosts" disabled={false} onClick={fn} />);
 
     const button = screen.getByRole('button', { name: /LoadMorePosts/i });
 
