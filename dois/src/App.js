@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import './App.css';
 
@@ -17,11 +17,15 @@ function App() {
     setCounter((c) => c + num);
   }, []);
 
+  const btn = useMemo(() => {
+    return <Button incrementButton={incrementCounter} />;
+  }, [incrementCounter]);
+
   return (
     <div className="App">
       <p>Teste</p>
       <h1>C1: {counter}</h1>
-      <Button incrementButton={incrementCounter} />
+      {btn}
     </div>
   );
 }
