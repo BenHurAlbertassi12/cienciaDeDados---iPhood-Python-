@@ -4,9 +4,15 @@ import './App.css';
 function App() {
   const [counter, setCounter] = useState(0);
 
+  // executa toda vez que o componente atualiza
   useEffect(() => {
     console.log('componentDidUpdate');
   });
+
+  // executa uma vez
+  useEffect(() => {
+    console.log('componentDidMount');
+  }, []);
 
   return (
     <div className="App">
