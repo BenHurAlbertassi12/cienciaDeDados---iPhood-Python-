@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
-// import { useState } from 'react';
 
 function App() {
   const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    console.log('componentDidUpdate');
+  });
+
   return (
     <div className="App">
       <h1>Contador:{counter}</h1>
