@@ -22,40 +22,10 @@ const globalState = {
   counter: 0,
 };
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'muda': {
-      console.log('Chamou muda', action.payload);
-      return { ...state, title: action.payload };
-    }
-    case 'inverter': {
-      console.log('Chamou inverter');
-      const { title } = state;
-      return { ...state, title: title.split('').reverse().join('') };
-    }
-  }
-  return { ...state };
-};
-
 function App() {
-  const [state, dispatch] = useReducer(reducer, globalState);
-
   return (
     <>
-      <h1>{state.title}</h1>
-      <p>{state.body}</p>
-      <p>Counter: {state.counter}</p>
-      <button
-        onClick={() =>
-          dispatch({
-            type: 'muda',
-            payload: new Date().toLocaleString('pt-br'),
-          })
-        }
-      >
-        muda
-      </button>
-      <button onClick={() => dispatch({ type: 'inverter' })}>invert</button>
+      <h1>Ola</h1>
     </>
   );
 }
