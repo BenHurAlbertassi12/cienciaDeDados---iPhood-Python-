@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { globalState } from './data';
 
-const GlobalContext = React.createContext();
+export const GlobalContext = React.createContext();
 
 // eslint-disable-next-line react/prop-types
 export const AppContext = ({ children }) => {
