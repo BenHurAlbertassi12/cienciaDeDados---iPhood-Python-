@@ -25,8 +25,8 @@ const globalState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case 'muda': {
-      console.log('Chamou muda');
-      return { ...state, title: 'mudou' };
+      console.log('Chamou muda', action.payload);
+      return { ...state, title: action.payload };
     }
     case 'inverter': {
       console.log('Chamou inverter');
@@ -45,7 +45,16 @@ function App() {
       <h1>{state.title}</h1>
       <p>{state.body}</p>
       <p>Counter: {state.counter}</p>
-      <button onClick={() => dispatch({ type: 'muda' })}>muda</button>
+      <button
+        onClick={() =>
+          dispatch({
+            type: 'muda',
+            payload: new Date().toLocaleString('pt-br'),
+          })
+        }
+      >
+        muda
+      </button>
       <button onClick={() => dispatch({ type: 'inverter' })}>invert</button>
     </>
   );
