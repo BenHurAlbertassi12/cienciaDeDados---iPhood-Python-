@@ -28,11 +28,9 @@ function App() {
 
   // Component did mount
   useEffect(() => {
-    setTimeout(function () {
-      fetch('https://jsonplaceholder.typicode.com/posts')
-        .then((r) => r.json())
-        .then((r) => setPosts(r));
-    }, 5000);
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then((r) => r.json())
+      .then((r) => setPosts(r));
   }, []);
 
   return (
