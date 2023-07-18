@@ -2,14 +2,12 @@
 /* eslint-disable react/prop-types */
 
 import './App.css';
-import { Div } from './components/Div/Div';
-import { AppContext } from './context/App';
 
 function App() {
   return (
-    <AppContext>
-      <Div />
-    </AppContext>
+    <>
+      <h1>Ola</h1>
+    </>
   );
 }
 
