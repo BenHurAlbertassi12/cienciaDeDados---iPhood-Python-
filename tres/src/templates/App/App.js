@@ -1,13 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
+import { PostsProvider } from '../../context/PostsProvider/PostProvider';
 import './App.css';
 
 function App() {
   return (
-    <>
-      <h1>Ola</h1>
-    </>
+    <PostsProvider>
+      <>
+        <h1>Ola</h1>
+      </>
+    </PostsProvider>
   );
 }
 
