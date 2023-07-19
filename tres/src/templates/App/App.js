@@ -8,10 +8,9 @@ import './App.css';
 function App() {
   return (
     <PostsProvider>
-      <>
-        <h1>Ola</h1>
+      <div>
         <Posts />
-      </>
+      </div>
     </PostsProvider>
   );
 }

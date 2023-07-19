@@ -1,11 +1,13 @@
 import { useReducer } from 'react';
-import { PostsContext } from './context';
-import { data } from './data';
-import p from 'prop-types';
+
+import P from 'prop-types';
 import { reducer } from './reducer';
+import { data } from './data';
+import { PostsContext } from './context';
 
 export const PostsProvider = ({ children }) => {
   const [postsState, postsDispatch] = useReducer(reducer, data);
+
   return (
     <PostsContext.Provider value={{ postsState, postsDispatch }}>
       {children}
@@ -14,5 +16,5 @@ export const PostsProvider = ({ children }) => {
 };
 
 PostsProvider.propTypes = {
-  children: p.node.isRequired,
+  children: P.node.isRequired,
 };
