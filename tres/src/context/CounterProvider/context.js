@@ -1,3 +1,3 @@
 import { createContext } from 'react';
 
-export const ExempleProvider = createContext();
+export const CounterContext = createContext();
