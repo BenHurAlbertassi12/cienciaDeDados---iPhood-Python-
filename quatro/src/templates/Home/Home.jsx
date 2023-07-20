@@ -28,6 +28,8 @@ const useFetch = (url, opt) => {
   }, [url, opt, shouldLoad]);
 
   useEffect(() => {
+    let wait = false;
+
     setLoading(true);
 
     const fetchData = async () => {
@@ -35,14 +37,20 @@ const useFetch = (url, opt) => {
       try {
         const response = await fetch(urlRef.current, optRef.current);
         const jsonResult = await response.json();
-        setResult(jsonResult);
-        setLoading(false);
+
+        if (!wait) {
+          setResult(jsonResult);
+          setLoading(false);
+        }
       } catch (error) {
-        setLoading(false);
+        if (!wait) {
+          setLoading(false);
+        }
         throw error;
       }
     };
     fetchData(shouldLoad);
+    return () => (wait = true);
   }, [urlRef, optRef, shouldLoad]);
 
   return [result, loading];
