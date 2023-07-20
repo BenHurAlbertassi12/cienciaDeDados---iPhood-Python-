@@ -29,13 +29,17 @@ const useFetch = (url, opt) => {
 
   useEffect(() => {
     let wait = false;
+    const controller = new AbortController();
+    const signal = controller.signal;
 
     setLoading(true);
-
     const fetchData = async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       try {
-        const response = await fetch(urlRef.current, optRef.current);
+        const response = await fetch(urlRef.current, {
+          signal,
+          ...optRef.current,
+        });
         const jsonResult = await response.json();
 
         if (!wait) {
@@ -46,11 +50,14 @@ const useFetch = (url, opt) => {
         if (!wait) {
           setLoading(false);
         }
-        throw error;
+        console.warn(error);
       }
     };
     fetchData(shouldLoad);
-    return () => (wait = true);
+    return () => {
+      wait = true;
+      controller.abort();
+    };
   }, [urlRef, optRef, shouldLoad]);
 
   return [result, loading];
