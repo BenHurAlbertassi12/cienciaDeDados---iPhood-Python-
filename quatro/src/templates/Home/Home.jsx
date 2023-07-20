@@ -1,39 +1,73 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const useFetch = (url, opt) => {
   const [result, setResult] = useState(null);
-  const [loading, setLoadin] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const urlRef = useRef(url);
+  const optRef = useRef(opt);
 
   useEffect(() => {
-    setLoadin(true);
+    if (url !== urlRef.current) {
+      urlRef.current = url;
+      setShouldLoad(!shouldLoad);
+    }
+  }, [url, opt, shouldLoad]);
+
+  useEffect(() => {
+    setLoading(true);
 
     const fetchData = async () => {
       await new Promise((resolve) => setTimeout(resolve, 3000));
       try {
-        const response = await fetch(url, opt);
+        const response = await fetch(urlRef.current, optRef.current);
         const jsonResult = await response.json();
         setResult(jsonResult);
-        setLoadin(false);
+        setLoading(false);
       } catch (error) {
-        setLoadin(false);
+        setLoading(false);
         throw error;
       }
     };
-    fetchData();
-  }, [url, opt]);
+    fetchData(shouldLoad);
+  }, [urlRef, optRef, shouldLoad]);
 
   return [result, loading];
 };
 
 export const Home = () => {
+  const [postId, setPostId] = useState('');
   const [result, loading] = useFetch(
-    'https://jsonplaceholder.typicode.com/posts',
+    'https://jsonplaceholder.typicode.com/posts/' + postId,
+    {
+      headers: {
+        abc: '1',
+      },
+    },
   );
 
-  if (loading) <p>Loading...</p>;
+  useEffect(() => {
+    console.log('id do post', postId);
+  }, [postId]);
 
-  if (!loading && result) console.log(result);
+  const handleClick = (id) => {
+    setPostId(id);
+  };
 
-  return <h1>ola</h1>;
+  if (loading) return <p>Loading...</p>;
+
+  if (!loading && result) {
+    return (
+      <div>
+        {result?.length > 0 &&
+          result.map((p) => (
+            <div key={p.id} onClick={() => handleClick(p.id)}>
+              <p>{p.title}</p>
+            </div>
+          ))}
+      </div>
+    );
+  }
+
+  return <h1>Hello</h1>;
 };
