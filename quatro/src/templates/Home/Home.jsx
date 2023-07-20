@@ -1,5 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 
+const isObjEq = (objA, objB) => {
+  return JSON.stringify(objA) === JSON.stringify(objB);
+};
+
 const useFetch = (url, opt) => {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -8,9 +12,18 @@ const useFetch = (url, opt) => {
   const optRef = useRef(opt);
 
   useEffect(() => {
-    if (url !== urlRef.current) {
+    let changed = false;
+
+    if (!isObjEq(url, urlRef.current)) {
       urlRef.current = url;
-      setShouldLoad(!shouldLoad);
+      changed = true;
+    }
+    if (!isObjEq(opt, optRef.current)) {
+      optRef.current = opt;
+      changed = true;
+    }
+    if (changed) {
+      setShouldLoad((s) => !s);
     }
   }, [url, opt, shouldLoad]);
 
@@ -18,7 +31,7 @@ const useFetch = (url, opt) => {
     setLoading(true);
 
     const fetchData = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       try {
         const response = await fetch(urlRef.current, optRef.current);
         const jsonResult = await response.json();
@@ -41,7 +54,7 @@ export const Home = () => {
     'https://jsonplaceholder.typicode.com/posts/' + postId,
     {
       headers: {
-        abc: '1',
+        abc: '1' + postId,
       },
     },
   );
@@ -59,12 +72,18 @@ export const Home = () => {
   if (!loading && result) {
     return (
       <div>
-        {result?.length > 0 &&
+        {result?.length > 0 ? (
           result.map((p) => (
             <div key={p.id} onClick={() => handleClick(p.id)}>
               <p>{p.title}</p>
             </div>
-          ))}
+          ))
+        ) : (
+          <div onClick={() => handleClick('')}>
+            <h1>{result.title}</h1>
+            <p>{result.body}</p>
+          </div>
+        )}
       </div>
     );
   }
