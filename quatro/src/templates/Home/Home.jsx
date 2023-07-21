@@ -1,57 +1,30 @@
-/* eslint-disable no-unused-vars */
-import { useCallback, useEffect, useState } from 'react';
-
-const useAsync = (asyncFuntion, shouldRun) => {
-  const [result, setResult] = useState(null);
-  const [state, setState] = useState({
-    result: null,
-    error: null,
-    status: 'pending',
-  });
-  const [status, setStatus] = useState('idle');
-
-  const run = useCallback(() => {
-    console.log('effect', new Date().toLocaleTimeString());
-    setState({ result: null, error: null, status: 'idle' });
-
-    return asyncFuntion()
-      .then((response) => {
-        setState({ result: response, error: null, status: 'settled' });
-      })
-      .catch((error) => {
-        setState({ result: null, error: error, status: 'error' });
-      });
-  }, [asyncFuntion]);
-
-  useEffect(() => {
-    if (shouldRun) {
-      run();
-    }
-  }, [run, shouldRun]);
-
-  return [run, state.result, state.error, state.status];
-};
-
-const fetchData = async () => {
-  const data = await fetch('https://jsonplaceholder.typicode.com/posts/');
-  return await data.json();
-};
+import { useLayoutEffect, useRef, useState } from 'react';
 
 export const Home = () => {
-  const [posts, setPosts] = useState(null);
-  const [reFetchData, result, error, status] = useAsync(fetchData, true);
+  const [counted, setCounted] = useState([0, 1, 2, 3, 4]);
+  const divRef = useRef();
 
-  if (status === 'idle') {
-    return <pre>Nada Executando</pre>;
-  }
-  if (status === 'pending') {
-    return <pre>Loading...</pre>;
-  }
-  if (status === 'error') {
-    return <pre>{error.message}</pre>;
-  }
-  if (status === 'settled') {
-    return <pre>{JSON.stringify(result, null, 2)}</pre>;
-  }
-  return 'xiiiiiiiiiii';
+  useLayoutEffect(() => {
+    // const now = Date.now();
+    // while (Date.now() < now + 1500);
+    divRef.current.scrollTop = divRef.current.scrollHeight;
+  });
+
+  const handleClick = () => {
+    setCounted((c) => [...c, +c.slice(-1) + 1]);
+  };
+
+  return (
+    <>
+      <button onClick={handleClick}>Count {counted.slice(-1)}</button>
+      <div
+        ref={divRef}
+        style={{ height: '100px', width: '100px', overflowY: 'scroll' }}
+      >
+        {counted.map((c) => {
+          return <p key={`c-${c}`}>{c}</p>;
+        })}
+      </div>
+    </>
+  );
 };
