@@ -6,6 +6,7 @@ const useMediaQuery = (queryValue, initialValue = false) => {
   useDebugValue(`Query: ${queryValue}`, (name) => {
     return name + ' modificado';
   });
+  
 
   useEffect(() => {
     let isMounted = true;
