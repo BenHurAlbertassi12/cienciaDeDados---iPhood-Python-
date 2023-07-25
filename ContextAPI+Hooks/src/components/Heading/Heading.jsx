@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useCounterContext } from '../../contexts/CounterContext';
+import { useCounterContext } from '../../context/CounterContext/context';
 
 export const Heading = () => {
   const [state, actions] = useCounterContext();
