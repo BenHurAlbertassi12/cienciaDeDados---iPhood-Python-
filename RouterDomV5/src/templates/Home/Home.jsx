@@ -1,5 +1,4 @@
 import React, { Suspense, useState } from 'react';
-// import LazyComponent from './lazy-component';
 
 const loadComponent = () => {
   console.log('Componente carregando...');
