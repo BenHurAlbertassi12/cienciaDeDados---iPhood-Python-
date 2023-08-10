@@ -6,22 +6,16 @@ export const Nav = () => {
     <nav className='menu'>
       <ul>
         <li>
-          <p>A</p>
-        </li>
-        <li>
-          <a href='/'>Home</a>
-        </li>
-        <li>
-          <a href='/about'>About</a>
-        </li>
-        <li>
-          <p>Link</p>
-        </li>
-        <li>
           <Link to='/'>Home</Link>
         </li>
         <li>
           <Link to='/about'>About</Link>
+        </li>
+        <li>
+          <Link to='/posts'>Posts</Link>
+        </li>
+        <li>
+          <Link to='/posts/10'>Posts 10</Link>
         </li>
       </ul>
     </nav>
