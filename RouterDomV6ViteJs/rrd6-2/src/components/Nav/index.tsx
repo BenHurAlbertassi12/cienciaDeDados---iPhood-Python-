@@ -9,7 +9,9 @@ export const Nav = () => {
           <Link to='/'>Home</Link>
         </li>
         <li>
-          <Link to='/about'>About</Link>
+          <Link to='/about' state={'Estate da About'}>
+            About
+          </Link>
         </li>
         <li>
           <Link to='/posts'>Posts</Link>
